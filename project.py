@@ -5,11 +5,10 @@ from datetime import datetime
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error as mae, mean_squared_error as mse
 import joblib
 
 # Caching function to load data
-@st.cache
+@st.cache_data
 def load_data():
     df = pd.read_csv('ipl_data.csv')  # Ensure the CSV file is in the correct location
     df.drop(labels=['mid', 'venue', 'batsman', 'bowler', 'striker', 'non-striker'], axis=1, inplace=True)
@@ -23,7 +22,7 @@ def load_data():
     return df
 
 # Caching function to preprocess data
-@st.cache
+@st.cache_data
 def preprocess_data(df):
     encoded_df = pd.get_dummies(data=df, columns=['bat_team', 'bowl_team'])
     encoded_df = encoded_df[[
@@ -49,7 +48,7 @@ X_train.drop(labels='date', axis=True, inplace=True)
 X_test.drop(labels='date', axis=True, inplace=True)
 
 # Model training (if not pre-trained)
-@st.cache
+@st.cache_resource
 def train_models():
     linear_regressor = LinearRegression()
     linear_regressor.fit(X_train, y_train)
@@ -83,7 +82,7 @@ team_map = {
 }
 
 # Prediction function
-@st.cache
+@st.cache_data
 def predict_score(batting_team='CSK', bowling_team='MI', overs=5.1, runs=50, wickets=0, runs_in_prev_5=50, wickets_in_prev_5=0):
     temp_array = []
     teams = list(team_map.values())
