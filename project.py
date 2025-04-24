@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error as mae, mean_squared_error as mse
 
 # Load and preprocess data
-df = pd.read_csv(r'C:\\Users\\akhil\\OneDrive\\Desktop\\AKHIL\\ADM-PROJECT\\ipl_data.csv')
+df = pd.read_csv('ipl_data.csv')
 df.drop(labels=['mid', 'venue', 'batsman', 'bowler', 'striker', 'non-striker'], axis=1, inplace=True)
 consistent_teams = [
     'Kolkata Knight Riders', 'Chennai Super Kings', 'Rajasthan Royals',
